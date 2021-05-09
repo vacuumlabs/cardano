@@ -28,6 +28,9 @@ const trackVisits = (req, res, next) => {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
 
   const mydevice = device(req.headers['user-agent'])
+  console.log(ip)
+  console.log(req.headers['user-agent'])
+  console.log(mydevice.is('bot'))
 
   if (!knownIps.has(ip) && !mydevice.is('bot')) {
     knownIps.add(ip)

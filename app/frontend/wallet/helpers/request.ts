@@ -3,7 +3,7 @@ import {throwIfEpochBoundary} from '../../helpers/epochBoundaryUtils'
 import sleep from '../../helpers/sleep'
 import {DELAY_AFTER_TOO_MANY_REQUESTS} from '../constants'
 
-const request = async function request(url, method = 'GET', body = null, headers = {}) {
+const request = async (url, method = 'GET', body = null, headers = {}) => {
   let requestParams = {
     method,
     headers,

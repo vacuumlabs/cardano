@@ -76,6 +76,9 @@ const checkMap = check.map(process.env, {
   ADALITE_ENFORCE_STAKEPOOL: isBoolString,
   ADALITE_NEXT_VOTING_START: isIsoString,
   ADALITE_NEXT_VOTING_END: isIsoString,
+  CHANGELLY_URL: check.nonEmptyString,
+  CHANGELLY_API_KEY: check.nonEmptyString,
+  CHANGELLY_API_SECRET: check.nonEmptyString,
 })
 
 const {
@@ -112,6 +115,9 @@ const {
   ADALITE_ENABLE_LEDGER,
   ADALITE_NEXT_VOTING_START,
   ADALITE_NEXT_VOTING_END,
+  CHANGELLY_URL,
+  CHANGELLY_API_KEY,
+  CHANGELLY_API_SECRET,
 } = process.env
 
 let {ADALITE_SERVER_URL} = process.env
@@ -196,6 +202,9 @@ const backendConfig = {
   ADALITE_IP_BLACKLIST: ADALITE_IP_BLACKLIST
     ? ADALITE_IP_BLACKLIST.replace(/ /g, '').split(',')
     : [],
+  CHANGELLY_URL,
+  CHANGELLY_API_KEY,
+  CHANGELLY_API_SECRET,
 }
 
 module.exports = {

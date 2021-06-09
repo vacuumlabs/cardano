@@ -7,6 +7,7 @@ import actions from '../../actions'
 import {useSelector, useActions} from '../../helpers/connect'
 import {Lovelace} from '../../types'
 import styles from './balance.module.scss'
+import ChangellyApi from '../../exchange/changellyApi'
 
 const Balance = () => {
   const {reloadWalletInfo} = useActions(actions)
@@ -38,6 +39,23 @@ const Balance = () => {
           </div>
         </span>
       </div>
+      <button className="button" onClick={() => ChangellyApi().getCurrencies()}>
+        getCurrencies
+      </button>
+      <button
+        className="button"
+        onClick={() => ChangellyApi().getMinAmount({from: 'btc', to: 'eth'} as any)}
+      >
+        getMinAmount
+      </button>
+      <button
+        className="button"
+        onClick={() =>
+          ChangellyApi().getExchangeAmount({from: 'btc', to: 'ada', amount: BigInt(0.5)} as any)
+        }
+      >
+        getExchangeAmount
+      </button>
     </div>
   )
 }

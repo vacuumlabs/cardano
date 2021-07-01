@@ -78,6 +78,23 @@ export type Token = Omit<TokenObject, 'quantity'> & {
   quantity: number
 }
 
+export type RegisteredTokenMetadata = {
+  subject: string
+  description: string
+  ticker?: string
+  url?: string
+  logoHex?: string
+}
+
+export type UnregisteredToken = Token & {
+  registered: false
+}
+
+export type RegisteredToken = Token &
+  RegisteredTokenMetadata & {
+    registered: true
+  }
+
 export type TokenBundle = Token[]
 
 export type OrderedTokenBundle = {

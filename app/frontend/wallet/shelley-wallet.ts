@@ -1,8 +1,9 @@
 import BlockchainExplorer from './blockchain-explorer'
 import {AccountManager} from './account-manager'
-import {AccountInfo, CryptoProvider, CryptoProviderFeature} from '../types'
+import {AccountInfo, CryptoProvider, CryptoProviderFeature, RegisteredTokenMetadata} from '../types'
 import {MAX_ACCOUNT_INDEX} from './constants'
 import {StakepoolDataProvider} from '../helpers/dataProviders/types'
+import TokenRegistryApi from '../tokenRegistry/tokenRegistryApi'
 
 type WalletParams = {
   config: any
@@ -70,6 +71,18 @@ const ShelleyWallet = ({config, cryptoProvider}: WalletParams) => {
     )
   }
 
+  function getTokensMetadata(
+    accountInfo: Array<AccountInfo>
+  ): Promise<{[subject: string]: RegisteredTokenMetadata}> {
+    return TokenRegistryApi().getTokensMetadata([
+      ...new Set(
+        accountInfo.flatMap(({tokenBalance}) =>
+          tokenBalance.map(({policyId, assetName}) => `${policyId}${assetName}`)
+        )
+      ),
+    ])
+  }
+
   function getMaxAccountIndex() {
     return maxAccountIndex
   }
@@ -91,6 +104,7 @@ const ShelleyWallet = ({config, cryptoProvider}: WalletParams) => {
     fetchTxInfo,
     ensureFeatureIsSupported,
     getAccountsInfo,
+    getTokensMetadata,
     getStakepoolDataProvider,
     getAccount: accountManager.getAccount,
     exploreNextAccount: accountManager.exploreNextAccount,
